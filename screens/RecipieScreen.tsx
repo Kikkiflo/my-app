@@ -1,9 +1,9 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { StyleSheet, Button, Text, View } from "react-native";
+import { StyleSheet, TouchableOpacity, Button, Text, View } from "react-native";
 import { RootStackParamList } from "../App";
 import HomeScreen from "./HomeScreen";
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Recipie'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Recipes'>;
 
 export default function RecipieScreen({ route, navigation }: Props) {
     const { ageSpan } = route.params;
@@ -34,8 +34,10 @@ export default function RecipieScreen({ route, navigation }: Props) {
 
     return (
         <View style={styles.container}>
-            <Text>{message}</Text>
-            <Button title="Go back to Home" onPress={() => navigation.navigate('Home')} />
+            <Text style={styles.title}>{message}</Text>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
+                <Text style={styles.buttonText}>Go back to Home</Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -46,5 +48,24 @@ const styles = StyleSheet.create({
         backgroundColor: "#6ba195",
         alignItems: "center",
         justifyContent: "center",
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 20,
+        color: '#fff',
+        textAlign: 'center',
+    },
+    button: {
+        backgroundColor: '#6ba195',
+        padding: 12,
+        borderRadius: 8,
+        marginVertical: 8,
+        width: '80%',
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: '#3a5243',
+        fontSize: 18,
     },
 });

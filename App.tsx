@@ -6,7 +6,7 @@ import RecipieScreen from "./screens/RecipieScreen";
 
 export type RootStackParamList = {
   Home: undefined;
-  Recipie: { ageSpan: string };
+  Recipes: { ageSpan: string };
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -24,7 +24,8 @@ export default function App() {
         }}
       >
         <RootStack.Screen name="Home" component={HomeScreen} options={{ title: 'Baby Recipes Home' }} />
-        <RootStack.Screen name="Recipie" component={RecipieScreen} />
+        <RootStack.Screen name="Recipes" component={RecipieScreen} />
+
       </RootStack.Navigator>
     </NavigationContainer>
   );

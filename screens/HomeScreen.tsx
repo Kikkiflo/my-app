@@ -22,7 +22,7 @@ export default function HomeScreen({ navigation }: HomeProps) {
                     style={styles.button}
                     onPress={() => {
                         handlePress();
-                        navigation.navigate('Recipie', { ageSpan: '0-6' })
+                        navigation.navigate('Recipes', { ageSpan: '0-6' })
                     }}
                 >
                     <Text style={styles.buttonText}>Younger than 6 months</Text>
@@ -31,7 +31,7 @@ export default function HomeScreen({ navigation }: HomeProps) {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        handlePress(); navigation.navigate('Recipie', { ageSpan: '6-8' })
+                        handlePress(); navigation.navigate('Recipes', { ageSpan: '6-8' })
                     }}
                 >
                     <Text style={styles.buttonText}>6 to 8 months</Text>
@@ -40,7 +40,7 @@ export default function HomeScreen({ navigation }: HomeProps) {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        handlePress(); navigation.navigate('Recipie', { ageSpan: '8-10' })
+                        handlePress(); navigation.navigate('Recipes', { ageSpan: '8-10' })
                     }}
                 >
                     <Text style={styles.buttonText}>8 to 10 months</Text>
@@ -49,7 +49,7 @@ export default function HomeScreen({ navigation }: HomeProps) {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        handlePress(); navigation.navigate('Recipie', { ageSpan: '10-12' })
+                        handlePress(); navigation.navigate('Recipes', { ageSpan: '10-12' })
                     }}
                 >
                     <Text style={styles.buttonText}>10 to 12 months</Text>
@@ -58,7 +58,7 @@ export default function HomeScreen({ navigation }: HomeProps) {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        handlePress(); navigation.navigate('Recipie', { ageSpan: '12-18' })
+                        handlePress(); navigation.navigate('Recipes', { ageSpan: '12-18' })
                     }}
                 >
                     <Text style={styles.buttonText}>12 to 18 months</Text>
