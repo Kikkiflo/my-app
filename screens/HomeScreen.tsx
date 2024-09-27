@@ -5,11 +5,13 @@ import * as Haptics from 'expo-haptics';
 import { Audio } from 'expo-av';
 
 const backgroundImage = require('../assets/Baby.png');
+const soundFile = require('../assets/Adrian.m4a');
 
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, "Home">;
 
 export default function HomeScreen({ navigation }: HomeProps) {
+
     const handlePress = () => {
         Haptics.selectionAsync();
     };

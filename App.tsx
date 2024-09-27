@@ -3,10 +3,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import HomeScreen from "./screens/HomeScreen";
 import RecipieScreen from "./screens/RecipieScreen";
+import FavoritesScreen from "./screens/FavoritesScreen";
 
 export type RootStackParamList = {
   Home: undefined;
   Recipes: { ageSpan: string };
+  Favorites: undefined;
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -25,6 +27,7 @@ export default function App() {
       >
         <RootStack.Screen name="Home" component={HomeScreen} options={{ title: 'Baby Recipes Home' }} />
         <RootStack.Screen name="Recipes" component={RecipieScreen} />
+        <RootStack.Screen name="Favorites" component={FavoritesScreen} />
 
       </RootStack.Navigator>
     </NavigationContainer>
