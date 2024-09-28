@@ -25,9 +25,9 @@ export default function App() {
           headerTitleStyle: { fontWeight: 'bold' },
         }}
       >
-        <RootStack.Screen name="Home" component={HomeScreen} options={{ title: 'Baby Recipes Home' }} />
-        <RootStack.Screen name="Recipes" component={RecipieScreen} />
-        <RootStack.Screen name="Favorites" component={FavoritesScreen} />
+        <RootStack.Screen name="Home" component={HomeScreen} options={{ title: 'Hem' }} />
+        <RootStack.Screen name="Recipes" component={RecipieScreen} options={{ title: 'Recept' }} />
+        <RootStack.Screen name="Favorites" component={FavoritesScreen} options={{ title: 'Favoriter' }} />
 
       </RootStack.Navigator>
     </NavigationContainer>

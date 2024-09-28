@@ -18,7 +18,7 @@ export default function HomeScreen({ navigation }: HomeProps) {
     return (
         <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.background} imageStyle={{ opacity: 0.7 }}>
             <View style={styles.container}>
-                <Text style={styles.title}>Select your baby's age group</Text>
+                <Text style={styles.title}>Välj ålderskategori</Text>
 
                 <TouchableOpacity
                     style={styles.button}
@@ -27,7 +27,7 @@ export default function HomeScreen({ navigation }: HomeProps) {
                         navigation.navigate('Recipes', { ageSpan: '0-6' })
                     }}
                 >
-                    <Text style={styles.buttonText}>Younger than 6 months</Text>
+                    <Text style={styles.buttonText}>Yngre än 6 månader</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -36,7 +36,7 @@ export default function HomeScreen({ navigation }: HomeProps) {
                         handlePress(); navigation.navigate('Recipes', { ageSpan: '6-8' })
                     }}
                 >
-                    <Text style={styles.buttonText}>6 to 8 months</Text>
+                    <Text style={styles.buttonText}>6 till 8 månader</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -45,7 +45,7 @@ export default function HomeScreen({ navigation }: HomeProps) {
                         handlePress(); navigation.navigate('Recipes', { ageSpan: '8-10' })
                     }}
                 >
-                    <Text style={styles.buttonText}>8 to 10 months</Text>
+                    <Text style={styles.buttonText}>8 till 10 månader</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -54,7 +54,7 @@ export default function HomeScreen({ navigation }: HomeProps) {
                         handlePress(); navigation.navigate('Recipes', { ageSpan: '10-12' })
                     }}
                 >
-                    <Text style={styles.buttonText}>10 to 12 months</Text>
+                    <Text style={styles.buttonText}>10 till 12 månader</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -63,7 +63,16 @@ export default function HomeScreen({ navigation }: HomeProps) {
                         handlePress(); navigation.navigate('Recipes', { ageSpan: '12-18' })
                     }}
                 >
-                    <Text style={styles.buttonText}>12 to 18 months</Text>
+                    <Text style={styles.buttonText}>12 till 18 månader</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                        handlePress(); navigation.navigate('Favorites')
+                    }}
+                >
+                    <Text style={styles.buttonText}>Mina favoriter</Text>
                 </TouchableOpacity>
             </View>
         </ImageBackground >

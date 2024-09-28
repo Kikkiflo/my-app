@@ -1,7 +1,15 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { StyleSheet, TouchableOpacity, Button, Text, Image, View } from "react-native";
+import { StyleSheet, TouchableOpacity, Text, Image, View, ScrollView } from "react-native";
 import { RootStackParamList } from "../App";
-import HomeScreen from "./HomeScreen";
+
+const sixtoeightImage = require('../assets/6-8.png');
+const sixtoeightagainImage = require('../assets/6-8igen.png');
+const eightToTenImage = require('../assets/8-10.png');
+const eightToTenAgainImage = require('../assets/8-10igen.png');
+const tenToTwelveImage = require('../assets/10-12.png');
+const tenToTwelveAgainImage = require('../assets/10-12igen.png');
+const twelvePlusImage = require('../assets/12-18.png');
+const twelvePlusAgainImage = require('../assets/12-18igen.png');
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Recipes'>;
 
@@ -9,51 +17,52 @@ export default function RecipieScreen({ route, navigation }: Props) {
     const { ageSpan } = route.params;
 
     let message = "";
-    let imageSource: string | null = null;
+    let imageSources: any[] = [];
 
     switch (ageSpan) {
         case '0-6':
-            message = "Babies younger than 6 months should only be fed breastmilk or milk formula.";
-            imageSource = 'https://media.istockphoto.com/id/1275780939/vector/breastfeeding-line-icons-set-mother-breast-feeding-baby-powdered-milk-pump-sling-infant-food.jpg?s=612x612&w=0&k=20&c=6Q2Hd806vlO3A6nEub9811eEjtkGbVCkMSv73rCn2Lw=';
+            message = "Bröstmjölken eller modersmjölksersättningen ger all näring barnet behöver under hela första halvåret";
             break;
         case '6-8':
-            message = "Babies 6 to 8 months old can start with purees and soft foods. Here are some recipes:";
-            imageSource = '';
+            message = "Bebisar 6-8 månader kan börja med pureér. Här är några recept:";
+            imageSources.push(sixtoeightImage, sixtoeightagainImage);
             break;
         case '8-10':
-            message = "Babies 8 to 10 months old can handle more textured foods. Here are some recipes:";
-            imageSource = '';
+            message = "Bebisar 8-10 månader kan börja med mer texurerad mat. Här är några recept:";
+            imageSources.push(eightToTenImage, eightToTenAgainImage);
             break;
         case '10-12':
-            message = "Babies 10 to 12 months old can eat small pieces of soft food. Here are some recipes:";
-            imageSource = '';
+            message = "Bebisar 10 till 12 månader kan börja äta små bitar av mjuk mat. Här är några recept:";
+            imageSources.push(tenToTwelveImage, tenToTwelveAgainImage);
             break;
         case '12-18':
-            message = "Babies over 12 months can eat most foods, but avoid choking hazards. Here are some recipes:";
-            imageSource = '';
+            message = "Bebisar över 12 månader kan äta de flesta livsmedel, men undvik kvävningsrisker. Här är några recept:";
+            imageSources.push(twelvePlusImage, twelvePlusAgainImage);
             break;
     }
 
-
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
             <Text style={styles.title}>{message}</Text>
-            {imageSource && (
-                <Image source={{ uri: imageSource }} style={styles.recipeImage} resizeMode="contain" />
-            )}
+            {imageSources.map((source, index) => (
+                <View key={index} style={styles.imageContainer}>
+                    <Image source={source} style={styles.recipeImage} resizeMode="stretch" />
+                </View>
+            ))}
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
-                <Text style={styles.buttonText}>Go back to Home</Text>
+                <Text style={styles.buttonText}>Tillbaka</Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+    scrollContainer: {
+        flexGrow: 1,
         backgroundColor: "#6ba195",
         alignItems: "center",
         justifyContent: "center",
+        paddingVertical: 20,
     },
     title: {
         fontSize: 18,
@@ -61,6 +70,16 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         color: '#fff',
         textAlign: 'center',
+    },
+    imageContainer: {
+        width: 500, // Fast bredd för varje bild
+        alignItems: 'center',
+        marginBottom: 30,
+    },
+    recipeImage: {
+        width: '40%', // Gör bilden lika bred som containern
+        height: 600, // Fast höjd för att hålla dem jämna
+        borderRadius: 8, // Stilar
     },
     button: {
         backgroundColor: '#6ba195',
@@ -73,10 +92,5 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#3a5243',
         fontSize: 18,
-    },
-    recipeImage: {
-        width: 300,
-        height: 200,
-        marginBottom: 20,
     },
 });
