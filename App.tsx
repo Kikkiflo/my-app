@@ -8,7 +8,7 @@ import FavoritesScreen from "./screens/FavoritesScreen";
 export type RootStackParamList = {
   Home: undefined;
   Recipes: { ageSpan: string };
-  Favorites: undefined;
+  Favorites: { favorites: any[] };
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();

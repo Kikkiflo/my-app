@@ -1,17 +1,15 @@
+import { useState } from 'react';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Button, Image, StyleSheet, TouchableOpacity, Text, View, ImageBackground } from "react-native";
 import { RootStackParamList } from "../App";
 import * as Haptics from 'expo-haptics';
-import { Audio } from 'expo-av';
 
 const backgroundImage = require('../assets/Baby.png');
-const soundFile = require('../assets/Adrian.m4a');
-
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, "Home">;
 
 export default function HomeScreen({ navigation }: HomeProps) {
-
+    const [favorites, setFavorites] = useState<any[]>([]);
     const handlePress = () => {
         Haptics.selectionAsync();
     };
@@ -69,7 +67,7 @@ export default function HomeScreen({ navigation }: HomeProps) {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        handlePress(); navigation.navigate('Favorites')
+                        handlePress(); navigation.navigate('Favorites', { favorites })
                     }}
                 >
                     <Text style={styles.buttonText}>Mina favoriter</Text>
