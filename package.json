@@ -21,7 +21,8 @@
     "react-native-screens": "3.31.1",
     "expo-haptics": "~13.0.1",
     "expo-av": "~14.0.7",
-    "@expo/vector-icons": "^14.0.3"
+    "@expo/vector-icons": "^14.0.3",
+    "lottie-react-native": "6.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

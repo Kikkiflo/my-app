@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useFavorites } from '../context/FavoritesContext';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StyleSheet, TouchableOpacity, Text, Image, View, ScrollView } from "react-native";
 import { RootStackParamList } from "../App";
 import { Audio } from 'expo-av';
+import LottieView from 'lottie-react-native';
+import { useRef, useState } from 'react';
 
 const sixtoeightImage = require('../assets/6-8.png');
 const sixtoeightagainImage = require('../assets/6-8igen.png');
@@ -12,14 +14,18 @@ const tenToTwelveImage = require('../assets/10-12.png');
 const tenToTwelveAgainImage = require('../assets/10-12igen.png');
 const twelvePlusImage = require('../assets/12-18.png');
 const twelvePlusAgainImage = require('../assets/12-18igen.png');
-
 const laughSound = require('../assets/Adrianskratt.m4a');
+const heartAnimation = require('../assets/heart.json');
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Recipes'>;
 
 export default function RecipieScreen({ route, navigation }: Props) {
     const { ageSpan } = route.params;
-    const [favorites, setFavorites] = useState<any[]>([]);
+    const { addToFavorites } = useFavorites();
+
+    // Lagra 'like' state för varje recept individuellt
+    const [isLiked, setIsLiked] = useState<boolean[]>([]);
+    const lottieRefs = useRef<(LottieView | null)[]>([]);
 
     let message = "";
     let imageSources: any[] = [];
@@ -46,31 +52,60 @@ export default function RecipieScreen({ route, navigation }: Props) {
             break;
     }
 
-    const handlePressLike = async (source: any) => {
+    const handlePressLike = async (source: any, index: number) => {
         // Lägg till i favoriter
-        setFavorites([...favorites, source]);
+        addToFavorites(source);
 
         // Spela upp ljudfilen
         const { sound } = await Audio.Sound.createAsync(laughSound);
         await sound.playAsync();
 
+        // Uppdatera like state för detta specifika recept
+        const updatedLikes = [...isLiked];
+        updatedLikes[index] = true;
+        setIsLiked(updatedLikes);
+
+        // Spela upp Lottie-animationen för detta specifika recept
+        if (lottieRefs.current[index]) {
+            lottieRefs.current[index]?.play();
+        }
+
         sound.setOnPlaybackStatusUpdate((status) => {
             if (status.isLoaded && status.didJustFinish) {
-                sound.unloadAsync();  // Frigör resurser efter uppspelning
+                sound.unloadAsync(); // Frigör resurser efter uppspelning
             }
         });
+
+        setTimeout(() => {
+            const resetLikes = [...isLiked];
+            resetLikes[index] = false;
+            setIsLiked(resetLikes);  // Återställ like state efter 1 sekund
+        }, 2500);
     };
+
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <Text style={styles.title}>{message}</Text>
             {imageSources.map((source, index) => (
                 <View key={index} style={styles.recipeContainer}>
                     <Image source={source} style={styles.recipeImage} resizeMode="stretch" />
-                    <TouchableOpacity style={styles.likeButton} onPress={() => handlePressLike(source)}>
+                    <TouchableOpacity style={styles.likeButton} onPress={() => handlePressLike(source, index)}>
                         <Text style={styles.likeButtonText}>Gilla</Text>
                     </TouchableOpacity>
+
+                    {/* Lottie Animation för varje recept */}
+                    {isLiked[index] && (
+                        <LottieView
+                            ref={(ref) => (lottieRefs.current[index] = ref)}
+                            source={heartAnimation}
+                            autoPlay={false}
+                            loop={false}
+                            style={styles.lottieHeart}
+                        />
+                    )}
                 </View>
             ))}
+
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
                 <Text style={styles.buttonText}>Tillbaka</Text>
             </TouchableOpacity>
@@ -124,5 +159,12 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#fff',
         fontSize: 18,
+    },
+    lottieHeart: {
+        width: 700,
+        height: 700,
+        position: 'absolute',
+        bottom: '10%',
+        zIndex: 10,
     },
 });

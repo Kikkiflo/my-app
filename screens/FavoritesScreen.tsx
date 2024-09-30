@@ -1,18 +1,41 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { StyleSheet, Text, ScrollView, Image, View } from "react-native";
+import { StyleSheet, TouchableOpacity, Text, ScrollView, Image, View } from "react-native";
 import { RootStackParamList } from "../App";
+import { Audio } from 'expo-av';
+import { useFavorites } from '../context/FavoritesContext';
+
+const angrySound = require('../assets/Adrianarg.m4a');
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Favorites'>;
 
 export default function FavoritesScreen({ route }: Props) {
-    const favorites = route.params?.favorites || [];
+    const { favorites, removeFromFavorites } = useFavorites();
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.title}>Mina favoritrecept</Text>
             {favorites && favorites.length > 0 ? (
                 favorites.map((source: any, index: number) => (
-                    <Image key={index} source={source} style={styles.recipeImage} resizeMode="stretch" />
+                    <View key={index} style={styles.recipeContainer}>
+                        <Image source={source} style={styles.recipeImage} resizeMode="stretch" />
+
+                        <TouchableOpacity
+                            style={styles.removeButton}
+                            onPress={async () => {
+                                removeFromFavorites(source);
+                                const { sound } = await Audio.Sound.createAsync(angrySound);
+                                await sound.playAsync();
+
+                                sound.setOnPlaybackStatusUpdate((status) => {
+                                    if (status.isLoaded && status.didJustFinish) {
+                                        sound.unloadAsync();  // Frigör resurser efter uppspelning
+                                    }
+                                });
+                            }}
+                        >
+                            <Text style={styles.removeButtonText}>Sluta gilla</Text>
+                        </TouchableOpacity>
+                    </View>
                 ))
             ) : (
                 <Text style={styles.noFavoritesText}>Inga favoriter än!</Text>
@@ -35,12 +58,39 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         color: '#fff',
     },
-    recipeImage: {
-        width: 300,
-        height: 300,
+    recipeContainer: {
+        width: 500,
+        alignItems: 'center',
         marginBottom: 20,
     },
+    recipeImage: {
+        width: '60%',
+        height: 800,
+        borderRadius: 8,
+    },
     noFavoritesText: {
+        color: '#fff',
+        fontSize: 18,
+    },
+    removeButton: {
+        backgroundColor: '#c94d34',
+        padding: 8,
+        borderRadius: 4,
+        marginTop: 5,
+    },
+    removeButtonText: {
+        color: '#fff',
+        fontSize: 16,
+    },
+    button: {
+        backgroundColor: '#6ba195',
+        padding: 12,
+        borderRadius: 8,
+        marginVertical: 8,
+        width: '80%',
+        alignItems: 'center',
+    },
+    buttonText: {
         color: '#fff',
         fontSize: 18,
     },

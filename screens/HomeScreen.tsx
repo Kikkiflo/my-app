@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Button, Image, StyleSheet, TouchableOpacity, Text, View, ImageBackground } from "react-native";
+import { StyleSheet, TouchableOpacity, Text, View, ImageBackground } from "react-native";
 import { RootStackParamList } from "../App";
 import * as Haptics from 'expo-haptics';
 
@@ -67,7 +67,7 @@ export default function HomeScreen({ navigation }: HomeProps) {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        handlePress(); navigation.navigate('Favorites', { favorites })
+                        handlePress(); navigation.navigate('Favorites')
                     }}
                 >
                     <Text style={styles.buttonText}>Mina favoriter</Text>
