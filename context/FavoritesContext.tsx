@@ -18,7 +18,7 @@ export const FavoritesProvider = ({ children }: { children: React.ReactNode }) =
     };
 
     const removeFromFavorites = (recipe: any) => {
-        setFavorites(favorites.filter((fav) => fav !== recipe)); // Ta bort receptet från favoriter
+        setFavorites(favorites.filter((fav) => fav !== recipe));
     };
 
     return (

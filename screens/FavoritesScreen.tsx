@@ -28,7 +28,7 @@ export default function FavoritesScreen({ route }: Props) {
 
                                 sound.setOnPlaybackStatusUpdate((status) => {
                                     if (status.isLoaded && status.didJustFinish) {
-                                        sound.unloadAsync();  // Frigör resurser efter uppspelning
+                                        sound.unloadAsync();
                                     }
                                 });
                             }}

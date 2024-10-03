@@ -23,7 +23,6 @@ export default function RecipieScreen({ route, navigation }: Props) {
     const { ageSpan } = route.params;
     const { addToFavorites } = useFavorites();
 
-    // Lagra 'like' state för varje recept individuellt
     const [isLiked, setIsLiked] = useState<boolean[]>([]);
     const lottieRefs = useRef<(LottieView | null)[]>([]);
 
@@ -53,33 +52,29 @@ export default function RecipieScreen({ route, navigation }: Props) {
     }
 
     const handlePressLike = async (source: any, index: number) => {
-        // Lägg till i favoriter
         addToFavorites(source);
 
-        // Spela upp ljudfilen
         const { sound } = await Audio.Sound.createAsync(laughSound);
         await sound.playAsync();
 
-        // Uppdatera like state för detta specifika recept
         const updatedLikes = [...isLiked];
         updatedLikes[index] = true;
         setIsLiked(updatedLikes);
 
-        // Spela upp Lottie-animationen för detta specifika recept
         if (lottieRefs.current[index]) {
             lottieRefs.current[index]?.play();
         }
 
         sound.setOnPlaybackStatusUpdate((status) => {
             if (status.isLoaded && status.didJustFinish) {
-                sound.unloadAsync(); // Frigör resurser efter uppspelning
+                sound.unloadAsync();
             }
         });
 
         setTimeout(() => {
             const resetLikes = [...isLiked];
             resetLikes[index] = false;
-            setIsLiked(resetLikes);  // Återställ like state efter 1 sekund
+            setIsLiked(resetLikes);
         }, 2500);
     };
 
@@ -93,7 +88,6 @@ export default function RecipieScreen({ route, navigation }: Props) {
                         <Text style={styles.likeButtonText}>Gilla</Text>
                     </TouchableOpacity>
 
-                    {/* Lottie Animation för varje recept */}
                     {isLiked[index] && (
                         <LottieView
                             ref={(ref) => (lottieRefs.current[index] = ref)}
