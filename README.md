@@ -30,10 +30,10 @@ Använd en simulator för att köra appen. T.ex. Expo Go-appen på din mobil och
 ## Projektkrav och Uppfyllda Funktioner
 
 ### Krav
-[x] Projektet innehåller minst 4 React Native-komponenter.
-[x] Projektet innehåller minst 4 Expo-komponenter.
-[x] React Navigation används för att skapa en smidig navigering mellan skärmarna.
-[x] Appen använder Git och GitHub för versionshantering.
+- [x] Projektet innehåller minst 4 React Native-komponenter.
+- [x] Projektet innehåller minst 4 Expo-komponenter.
+- [x] React Navigation används för att skapa en smidig navigering mellan skärmarna.
+- [x] Appen använder Git och GitHub för versionshantering.
 
 ### Använda Komponenter
 React Native-komponenter:
