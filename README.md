@@ -25,7 +25,7 @@ Installera paket:
 Starta appen:
 - `npm start`
 
-Använd en simulator för att köra appen. T.ex. Expo Go-appen på din mobil och skanna QR-koden som visas i terminalen eller Android Studio på datorn.
+Använd en simulator för att köra appen. T.ex. Expo Go-appen på din mobil och skanna QR-koden som visas i terminalen eller tryck 'a' för att öppna i Android Studio på datorn om du har den installerad.
 
 ## Projektkrav och Uppfyllda Funktioner
 
